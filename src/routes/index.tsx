@@ -6,9 +6,10 @@ const Main = () => {
 
     useEffect(() => {
         const test = async () => {
-            const res = await api.get("https://jsonplaceholder.typicode.com/posts/1")
 
-            console.log({res})
+            const res = await api.get("https://jsonplaceholder.typicode.com/comments", { postId: 1 })
+
+            console.log({ res })
         }
 
         test()

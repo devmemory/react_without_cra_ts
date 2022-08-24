@@ -1,13 +1,13 @@
-import axios from "axios";
+import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
 export default class {
-    instance: any
+    instance: AxiosInstance
 
     constructor() {
         this.instance = axios.create()
         // this.instance.defaults.baseURL 
         this.instance.interceptors.request.use(
-            (config: any) => {
+            (config: AxiosRequestConfig<any>) => {
                 return config;
             },
             (error: any) => {
@@ -16,8 +16,8 @@ export default class {
         )
     }
 
-    async get(url: string): Promise<any> {
-        return await this.instance.get(url)
+    async get(url: string, params?: object): Promise<any> {
+        return await this.instance.get(url, { params })
     }
 
     async post(url: string, data: object): Promise<any> {

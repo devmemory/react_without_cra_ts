@@ -6,7 +6,7 @@ const App = () => {
     return (
         <BrowserRouter>
             <Routes>
-                {routes.map((e, i) => (<Route key={`route-${i}`} path={e.path} element={e.element} />)
+                {routes.map((e, i) => (<Route key={e.path} path={e.path} element={e.element} />)
                 )}
             </Routes>
         </BrowserRouter>

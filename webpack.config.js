@@ -52,13 +52,17 @@ module.exports = {
             favicon: 'public/favicon.ico'
         }),
         new webpack.DefinePlugin({
-            port: process.env.port
+            port: process.env.port,
+            "process.env" : JSON.stringify(process.env)
         })
     ],
     devServer: {
-        host: 'localhost',
+        host: process.env.host,
         port: process.env.port,
-        open: true,
+        static: {
+            directory: __dirname + '/public',
+        },
+        compress: true,
         historyApiFallback: true,
         hot: true
     }
