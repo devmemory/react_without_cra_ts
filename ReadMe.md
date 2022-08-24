@@ -105,6 +105,6 @@ III. build 위치 및 개발 서버 셋팅
 }
 ```
 
-4.1 process.env 사용할수 있도록 플러그인 설정
-4.2 원하는 host, port 추가 (host: 0.0.0.0 입력시 본인 pc ip 할당)
-4.3 historyApiFallback: true 없으면 route 사용 불가
+4.1 process.env 사용할수 있도록 플러그인 설정  
+4.2 원하는 host, port 추가 (host: 0.0.0.0 입력시 본인 pc ip 할당)  
+4.3 historyApiFallback: true 없으면 route 사용 불가  
