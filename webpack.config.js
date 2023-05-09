@@ -14,23 +14,26 @@ module.exports = {
     entry: './src/index.tsx',
     output: {
         path: __dirname + '/build',
+        alias: {
+            src: "src",
+        },
         filename: 'bundle.js',
         publicPath: '/'
     },
     resolve: {
-        extensions: ['.ts', '.tsx', '.js', '.jsx', '.json', '.css'],
+        extensions: ['.ts', '.tsx', '.js', '.jsx', '.json', '.css', '...'],
         plugins: [new TsconfigPathsPlugin()]
     },
     module: {
         rules: [
             {
                 test: /\.(js|jsx)$/,
-                exclude: '/node_modules/',
+                exclude: /node_modules/,
                 loader: 'babel-loader'
             },
             {
                 test: /\.(ts|tsx)$/,
-                exclude: /node_module/,
+                exclude: /node_modules/,
                 use: {
                     loader: "ts-loader",
                 },
