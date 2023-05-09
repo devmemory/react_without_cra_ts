@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react'
-import Api from '../service/api'
+import TestApi from 'service/test/test_api';
 
 const Main = () => {
-    const api = new Api()
-
     useEffect(() => {
         const test = async () => {
+            const api = new TestApi('https://jsonplaceholder.typicode.com')
 
-            const res = await api.get("https://jsonplaceholder.typicode.com/comments", { postId: 1 })
+            const res = await api.getComment(1)
 
             console.log({ res })
         }

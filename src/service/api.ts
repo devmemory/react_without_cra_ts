@@ -1,26 +1,59 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
-export default class {
-    instance: AxiosInstance
+export default class Api {
+    private instance: AxiosInstance;
 
-    constructor() {
-        this.instance = axios.create()
-        // this.instance.defaults.baseURL 
+    constructor(baseURL = "", timeout = 30000) {
+
+        this.instance = axios.create({
+            baseURL,
+            timeout,
+        });
+
         this.instance.interceptors.request.use(
-            (config: AxiosRequestConfig<any>) => {
+            (config) => {
+                // const ssn = infoUtil.getSsn()
+
+                // if (ssn !== null) {
+                //     config.headers = {
+                //         ssn
+                //     }
+                // }
+
                 return config;
             },
-            (error: any) => {
+            (error) => {
+                console.log({ error });
                 return Promise.reject(error);
-            }
-        )
+            },
+        );
+
+        this.instance.interceptors.response.use(
+            (response) => {
+                console.log({ response });
+                return response;
+            },
+            (error) => {
+                console.log({ error });
+                return new Promise((res) => {
+                    res({
+                        data: {
+                            result: {
+                                msg: error.message,
+                                code: -1,
+                            },
+                        },
+                    });
+                });
+            },
+        );
     }
 
-    async get(url: string, params?: object): Promise<any> {
-        return await this.instance.get(url, { params })
+    protected async get(url: string, params?: any) {
+        return await this.instance.get(url, { params });
     }
 
-    async post(url: string, data: object): Promise<any> {
-        return await this.instance.post(url, data)
+    protected async post(url: string, data: any, config?: AxiosRequestConfig) {
+        return await this.instance.post(url, data, config);
     }
 }

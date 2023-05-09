@@ -1,22 +1,19 @@
 // 1. 엔트리 포인트 설정
 // 2. rules에 로더 설정 및 순서 배치(뒤의 요소부터 번들링에 반영)
 // 3. build 위치 및 개발 서버 셋팅
-const webpack = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin').CleanWebpackPlugin
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin').CleanWebpackPlugin;
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 // dev/production 분리용
-require('dotenv').config()
+require('dotenv').config();
 
 module.exports = {
     mode: process.env.mode,
     entry: './src/index.tsx',
     output: {
         path: __dirname + '/build',
-        alias: {
-            src: "src",
-        },
         filename: 'bundle.js',
         publicPath: '/'
     },
@@ -28,14 +25,14 @@ module.exports = {
         rules: [
             {
                 test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
+                exclude: '/node_modules/',
                 loader: 'babel-loader'
             },
             {
                 test: /\.(ts|tsx)$/,
-                exclude: /node_modules/,
+                exclude: '/node_modules/',
                 use: {
-                    loader: "ts-loader",
+                    loader: 'ts-loader',
                 },
             },
             {
@@ -56,7 +53,7 @@ module.exports = {
         }),
         new webpack.DefinePlugin({
             port: process.env.port,
-            "process.env" : JSON.stringify(process.env)
+            "process.env": JSON.stringify(process.env)
         })
     ],
     devServer: {
@@ -69,4 +66,4 @@ module.exports = {
         historyApiFallback: true,
         hot: true
     }
-}
+};
