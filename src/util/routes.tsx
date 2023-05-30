@@ -1,8 +1,8 @@
-import React from "react";
+import React, { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
-import Main from "routes";
-import ErrorPage from "routes/error";
-import Test from "routes/test";
+const Main = lazy(() => import("routes"));
+const ErrorPage = lazy(() => import("routes/error"));
+const Login = lazy(() => import("routes/test"));
 
 export const routeName = {
     main: '/',
@@ -11,6 +11,6 @@ export const routeName = {
 
 export default createBrowserRouter([
     { path: routeName.main, element: <Main /> },
-    { path: routeName.test, element: <Test /> },
+    { path: routeName.test, element: <Login /> },
     { path: '*', element: <ErrorPage /> },
 ]);

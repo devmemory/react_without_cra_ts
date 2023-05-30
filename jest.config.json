@@ -1,0 +1,10 @@
+{
+  "testEnvironment": "jsdom",
+  "moduleDirectories": [
+    "node_modules",
+    "src"
+  ],
+  "moduleNameMapper": {
+    "\\.(css)$": "<rootDir>/test/styleMock.ts"
+  }
+}

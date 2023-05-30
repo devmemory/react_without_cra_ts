@@ -4,9 +4,11 @@ import routes from 'util/routes';
 
 const App = () => {
     return (
-        <Suspense fallback={<div />}>
-            <RouterProvider router={routes} />
-        </Suspense>
+        <main className='main_app'>
+            <Suspense fallback={<div />}>
+                <RouterProvider router={routes} />
+            </Suspense>
+        </main>
     );
 };
 
