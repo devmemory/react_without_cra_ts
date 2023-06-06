@@ -1,22 +1,20 @@
-import React, { useEffect } from 'react'
-import TestApi from 'service/test/test_api';
+import React, { useEffect } from "react";
+import TestApi from "service/test/test_api";
 
 const Main = () => {
-    useEffect(() => {
-        const test = async () => {
-            const api = new TestApi('https://jsonplaceholder.typicode.com')
+	useEffect(() => {
+		const test = async () => {
+			const api = new TestApi("https://jsonplaceholder.typicode.com");
 
-            const res = await api.getComment(1)
+			const res = await api.getComment(1);
 
-            console.log({ res })
-        }
+			console.log({ res });
+		};
 
-        test()
-    }, [])
+		test();
+	}, []);
 
-    return (
-        <div>Main</div>
-    )
-}
+	return <div>Main</div>;
+};
 
-export default Main
+export default Main;

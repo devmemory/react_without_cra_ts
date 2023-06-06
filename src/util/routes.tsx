@@ -5,12 +5,12 @@ const ErrorPage = lazy(() => import("routes/error"));
 const Login = lazy(() => import("routes/test"));
 
 export const routeName = {
-    main: '/',
-    test: '/test'
+	main: "/",
+	test: "/test",
 };
 
 export default createBrowserRouter([
-    { path: routeName.main, element: <Main /> },
-    { path: routeName.test, element: <Login /> },
-    { path: '*', element: <ErrorPage /> },
+	{ path: routeName.main, element: <Main /> },
+	{ path: routeName.test, element: <Login /> },
+	{ path: "*", element: <ErrorPage /> },
 ]);
