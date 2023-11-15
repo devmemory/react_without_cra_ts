@@ -1,66 +1,89 @@
-// 1. 엔트리 포인트 설정
-// 2. rules에 로더 설정 및 순서 배치(뒤의 요소부터 번들링에 반영)
-// 3. build 위치 및 개발 서버 셋팅
+// 1. Setting entry point
+// 2. Setting loader
+// 3. build, dev server setting
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyWebpackPulgin = require("copy-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin").CleanWebpackPlugin;
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
-// dev/production 분리용
 require("dotenv").config();
 
 module.exports = {
-	mode: process.env.mode,
-	entry: "./src/index.tsx",
-	output: {
-		path: __dirname + "/build",
-		filename: "bundle.js",
-		publicPath: "/",
-	},
-	resolve: {
-		extensions: [".ts", ".tsx", ".js", ".jsx", ".json", ".css", "..."],
-		plugins: [new TsconfigPathsPlugin()],
-	},
-	module: {
-		rules: [
-			{
-				test: /\.(js|jsx)$/,
-				exclude: "/node_modules/",
-				loader: "babel-loader",
-			},
-			{
-				test: /\.(ts|tsx)$/,
-				exclude: "/node_modules/",
-				use: {
-					loader: "ts-loader",
-				},
-			},
-			{
-				test: /\.css$/,
-				use: [{ loader: "style-loader" }, { loader: "css-loader" }],
-			},
-		],
-	},
-	plugins: [
-		new CleanWebpackPlugin(),
-		new HtmlWebpackPlugin({
-			template: "public/index.html",
-			hash: true,
-			favicon: "public/favicon.ico",
-		}),
-		new webpack.DefinePlugin({
-			port: process.env.port,
-			"process.env": JSON.stringify(process.env),
-		}),
-	],
-	devServer: {
-		host: process.env.host,
-		port: process.env.port,
-		static: {
-			directory: __dirname + "/public",
-		},
-		compress: true,
-		historyApiFallback: true,
-		hot: true,
-	},
+  mode: process.env.NODE_ENV,
+  entry: "./src/index.tsx",
+  output: {
+    path: __dirname + "/build",
+    filename: "app/[name].js",
+    publicPath: "/",
+    assetModuleFilename: (filePath) => {
+      return filePath.filename.split("/").slice(1).join("/"); // public/assets/... => assets/...
+    },
+  },
+  resolve: {
+    extensions: [".ts", ".tsx", ".js", ".jsx", ".json", ".css", "..."],
+    plugins: [new TsconfigPathsPlugin()],
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: "babel-loader",
+      },
+      {
+        test: /\.(ts|tsx)$/,
+        exclude: /node_modules/,
+        use: "ts-loader",
+      },
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif|svg)$/,
+        type: "asset/resource",
+        generator: {
+          emit: false, // don't generate files
+        },
+      },
+      {
+        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        type: "asset/resource",
+        generator: {
+          emit: false, // don't generate files
+        },
+      },
+    ],
+  },
+  plugins: [
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: "public/index.html",
+      hash: true,
+      favicon: "public/favicon.ico",
+    }),
+    new webpack.DefinePlugin({
+      "process.env": JSON.stringify(process.env),
+      port: process.env.port,
+    }),
+    new MiniCssExtractPlugin({
+      filename: "app/[name].css",
+      chunkFilename: "app/[id].css",
+    }), // build : build/app
+    new CopyWebpackPulgin({
+      patterns: [{ from: "public/assets", to: "assets" }], // dev : project/public/assets, product : build/assets
+    }),
+  ],
+  devServer: {
+    host: process.env.host,
+    port: process.env.port,
+    static: {
+      directory: __dirname + "/public",
+    },
+    compress: true,
+    historyApiFallback: true,
+    hot: true,
+  },
 };

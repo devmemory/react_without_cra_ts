@@ -1,6 +1,7 @@
-import CommonBtn from "components/CommonBtn";
-import CommonInput from "components/CommonInput";
+import CommonBtn from "src/components/CommonBtn";
+import CommonInput from "src/components/CommonInput";
 import React, { useState } from "react";
+import styles from './Login.module.css'
 
 const Login = () => {
 	const [username, setUsername] = useState("");
@@ -13,7 +14,7 @@ const Login = () => {
 	};
 
 	return (
-		<div>
+		<div className={styles.div_test}>
 			<h2>Login</h2>
 			<CommonInput
 				type="text"

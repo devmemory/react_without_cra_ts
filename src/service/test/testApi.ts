@@ -1,4 +1,4 @@
-import Api from "service/api";
+import Api from "../api";
 
 export default class TestApi extends Api {
 	async getComment(postId: number) {
