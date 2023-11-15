@@ -21,7 +21,10 @@
 - 역할 : 모듈 번들러로 웹 파일들을 하나의 파일로 묶어줌
 - 방법 : npm i -D webpack webpack-cli webpack-dev-server babel-loader css-loader style-loader
 
-  4.1 webpack : 모듈 번들러 4.2 webpack-cli : 커맨드라인 인터페이스 4.1 webpack-dev-server : 임시 서버 구동에 필요 4.2 css-loader, style-loader : css 문법을 js로 변환 및 html의 style 태그에 넣어줌
+4.1 webpack : 모듈 번들러  
+4.2 webpack-cli : 커맨드라인 인터페이스  
+4.3 webpack-dev-server : 임시 서버 구동에 필요  
+4.2 css-loader, style-loader : css 문법을 js로 변환 및 html의 style 태그에 넣어줌  
 
 ## 5. 플러그인 설치
 5.1 html-webpack-plugin : html파일에 번들링된 react 코드 삽입, dist폴더에 번들링된 파일 옮겨줌  
