@@ -1,5 +1,8 @@
 {
   "testEnvironment": "jsdom",
+  "transform": {
+    "\\.[jt]sx?$": "esbuild-jest"
+  },
   "moduleDirectories": ["node_modules", "src"],
   "moduleNameMapper": {
     "\\.(css)$": "<rootDir>/test/styleMock.ts",

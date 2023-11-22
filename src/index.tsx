@@ -6,16 +6,12 @@ import { router } from "./util/routeUtil";
 
 const App = () => {
   return (
-    <main className="main_app">
-      <Suspense fallback={<div />}>
-        <RouterProvider router={router} />
-      </Suspense>
-    </main>
+    <Suspense fallback={<div />}>
+      <RouterProvider router={router} />
+    </Suspense>
   );
 };
 
-const root = ReactDom.createRoot(
-  document.getElementById("root") as HTMLElement
+ReactDom.createRoot(document.getElementById("root") as HTMLElement).render(
+  <App />
 );
-
-root.render(<App />);

@@ -83,12 +83,13 @@ ul {
 }
 
 .main_app img {
-	width: 200px;
-	height: 200px;
+  width: 200px;
+  height: 200px;
 }
 
 .div_test {
   background-image: url(/public/assets/images/cloud.png);
+  background-color: grey;
   width: 200px;
-	height: 200px;
+  height: 200px;
 }

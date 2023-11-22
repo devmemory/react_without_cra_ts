@@ -18,7 +18,9 @@ module.exports = {
     filename: "app/[name].js",
     publicPath: "/",
     assetModuleFilename: (filePath) => {
-      return filePath.filename.split("/").slice(1).join("/"); // public/assets/... => assets/...
+      // public/assets/... => assets/...
+
+      return filePath.filename.split("/").slice(1).join("/");
     },
   },
   resolve: {
@@ -28,14 +30,11 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: "babel-loader",
-      },
-      {
-        test: /\.(ts|tsx)$/,
-        exclude: /node_modules/,
-        use: "ts-loader",
+        test: /\.[jt]sx?$/,
+        loader: "esbuild-loader",
+        options: {
+          target: "es2015",
+        },
       },
       {
         test: /\.css$/,
@@ -49,7 +48,7 @@ module.exports = {
         },
       },
       {
-        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d\.\d\.\d)?$/,
         type: "asset/resource",
         generator: {
           emit: false, // don't generate files
